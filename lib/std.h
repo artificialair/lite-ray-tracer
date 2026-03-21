@@ -3,9 +3,12 @@
 #include "syscalls.h"
 
 #define STDOUT_FILENO 1
+#define NULL 0
+#define MALLOC_SIZE 1024
 
 int strlen(const char * str);
-int atoi(char * str);
-char * itoa(int n);
+int atoi(const char * str);
+const char * itoa(int n);
+void print_test_result(bool result);
 
 #endif /*STD_H_*/

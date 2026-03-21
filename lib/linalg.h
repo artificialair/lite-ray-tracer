@@ -1,6 +1,7 @@
 #ifndef LINALG_H_
 #define LINALG_H_
 #include "syscalls.h"
+#include "mem.h"
 
 const float pi = 3.14159265359;
 
