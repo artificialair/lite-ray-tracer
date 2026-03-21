@@ -3,7 +3,7 @@
 #include "syscalls.h"
 #include "mem.h"
 
-const float pi = 3.14159265359;
+#define PI 3.14159265358979323
 
 typedef struct {
     float*  vector;

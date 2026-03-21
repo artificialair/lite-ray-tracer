@@ -2,8 +2,10 @@
 
 Vector* init_vector(int l) {
     float* res_vector = (float*)malloc(l * sizeof(float*));
-    Vector* res = {res_vector, l};
-    return res;
+    Vector* vec = malloc(sizeof(Vector));
+    vec->vector = res_vector;
+    vec->length = l;
+    return vec;
 }
 
 Matrix* init_matrix(int r, int c) {
@@ -11,7 +13,10 @@ Matrix* init_matrix(int r, int c) {
     for (int i = 0; i < r; i++) {
         res_matrix[i] = (float*)malloc(c * sizeof(float));
     }
-    Matrix* res = {res_matrix, r, c};
+    Matrix* res = malloc(sizeof(Matrix));
+    res->matrix = res_matrix;
+    res->row    = r;
+    res->col    = c;
     return res;
 }
 
@@ -51,7 +56,7 @@ float invsqrt(float x) {
 }
 
 float sin(float x) {
-    // uses some approximation i forget the name of
+    // 6th order Pade Approximation for sin
     const float a1 = 12671/4363920 * pow(x, 5);
     const float a2 = -2363/18183 * pow(x, 3);
     const float a3 = 445/12122 * pow(x, 2);
@@ -61,7 +66,7 @@ float sin(float x) {
 }
 
 float cos(float x) {
-    return sin(pi/2 + x);
+    return sin(PI/2 + x);
 }
 
 float magnitude(Vector* v) {

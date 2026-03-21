@@ -12,7 +12,7 @@
 #define DEFAULT_PAGE_SIZE 1024*1024
 
 void* malloc(size_t size);
-void* free(void* mem);
+void free(void* mem);
 
 typedef struct {
     void*  page_start;
