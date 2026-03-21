@@ -1,0 +1,60 @@
+{
+ "camera": {
+  "view_point": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "view_dir": [
+   1.0,
+   0.0,
+   0.0
+  ],
+  "proj_normal": [
+   -1.0,
+   0.0,
+   0.0
+  ],
+  "view_up": [
+   0.0,
+   1.0,
+   0.0
+  ],
+  "proj_distance": 1,
+  "view_width": 2,
+  "view_height": 2,
+  "type": "Camera"
+ },
+ "materials": {
+  "blue": {
+   "color": [
+    0.008,
+    0.271,
+    0.678
+   ],
+   "type": "Constant"
+  }
+ },
+ "surfaces": [
+  {
+   "material": "blue",
+   "point": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "normal": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "type": "Plane"
+  }
+ ],
+ "lights": [],
+ "image": [
+  200,
+  200
+ ],
+ "type": "Scene"
+}
