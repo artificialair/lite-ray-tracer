@@ -1,5 +1,6 @@
 #ifndef linalg
 #define linalg
+#include "syscalls.h"
 
 const double pi = 3.14159265359;
 

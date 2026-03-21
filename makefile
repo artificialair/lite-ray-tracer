@@ -30,7 +30,7 @@ clean:
 	rm -f src/*.o
 	rm -f ./bin/$(TARGET_EXEC)
 
-.SILENT:
+# .SILENT:
 .PHONY: run
 run:
 	make $(BIN_DIR)/$(TARGET_EXEC)

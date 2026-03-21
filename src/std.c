@@ -1,7 +1,7 @@
 #include "std.h"
 
-int strlen(char * str) {
-	char * p = str;
+int strlen(const char * str) {
+	const char * p = str;
 	while (*p != '\0') {
 		p++;
 	}
@@ -34,7 +34,7 @@ char * itoa(int n) {
 		size++;
 	}
 
-	static char str[size];
+	char* str = malloc(size);
 	for (int i = size; i > 0; i--) {
 		str[i] = n % 10;
 		n = n / 10;
