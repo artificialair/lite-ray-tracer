@@ -33,9 +33,32 @@ bool str_tests() {
     return false;
 }
 
+bool linalg_tests() {
+    Matrix* a = init_matrix(2, 3);
+    Matrix* b = init_matrix(3, 2);
+    a->matrix[0][0] = 1;
+    a->matrix[0][1] = 4;
+    a->matrix[0][2] = 3;
+    a->matrix[0][0] = 7;
+    a->matrix[1][1] = 2;
+    a->matrix[2][2] = 9;
+    b->matrix[0][0] = 2;
+    b->matrix[0][1] = 1;
+    b->matrix[1][0] = 5;
+    b->matrix[1][1] = 4;
+    b->matrix[2][0] = 9;
+    b->matrix[2][1] = 6;
+    Matrix* d = matr_mult(a, b);
+    if (d->matrix[0][0] != 49 || d->matrix[0][1] != 35 || d->matrix[1][0] != 105 || d->matrix[1][1] != 69) {
+        return true;
+    }
+}
+
 void run_tests() {
     uint32_t res = malloc_test();
     print_test_result(res);
     res = str_tests();
+    print_test_result(res);
+    res = linalg_tests();
     print_test_result(res);
 }
