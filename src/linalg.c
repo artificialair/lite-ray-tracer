@@ -17,11 +17,11 @@ int pow(double a, int n) {
 
 double sin(double x) {
     // uses some approximation i forget the name of
-    const double a1 = 12671/436920 * pow(x, 5);
-    const double a2 = -2361/18183 * pow(x, 3);
+    const double a1 = 12671/4363920 * pow(x, 5);
+    const double a2 = -2363/18183 * pow(x, 3);
     const double a3 = 445/12122 * pow(x, 2);
     const double a4 = 601/872784 * pow(x, 4);
-    const double a5 = 101/16662240 * pow(x, 6);
+    const double a5 = 121/16662240 * pow(x, 6);
     return a1 + a2 + x / 1 + a3 + a4 + a5;
 }
 
