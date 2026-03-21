@@ -1,4 +1,4 @@
-const double pi = 3.14159265359;
+#include "linalg.h"
 
 int pow(double a, int n) {
   if (n == 0) {
@@ -38,7 +38,7 @@ double dot_product(double* a, double* b, int size) {
 }
 
 double* cross_product(double* a, double* b) {
-    double* res = new double[3];
+    double* res = malloc(3 * sizeof(double));
     res[0] = a[1] * b[2] - a[2] * b[1];
     res[1] = a[2] * b[0] - a[0] * b[2];
     res[2] = a[0] * b[1] - a[1] * b[0];
