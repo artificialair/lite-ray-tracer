@@ -43,6 +43,6 @@ const char * itoa(int n) {
 	return str;
 }
 
-void print_test_result(bool result) {
+void print_test_result(int result) {
     result ? print("\e[0;31mFAILED\e[0m\n") : print("\e[0;32mPASSED\e[0m\n");
 }

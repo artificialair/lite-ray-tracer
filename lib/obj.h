@@ -5,26 +5,26 @@
 #include "linalg.h"
 
 typedef struct {
-	float  view_point[3];
-	float  view_dir[3];
-	float  proj_normal[3];
-	float  view_up[3];
+	Vector view_point[3];
+	Vector view_dir[3];
+	Vector proj_normal[3];
+	Vector view_up[3];
 	int32_t    proj_distance;
 	int32_t    view_width;
 	int32_t    view_height;
-    Vector u_vec;
-    Vector v_vec;
-    Vector w_vec;
+    	Vector u_vec;
+    	Vector v_vec;
+	Vector w_vec;
 } Camera;
 
 typedef struct {
-	float color[3];
+	Vector color[3];
 } Material;
 
 typedef struct {
 	Material*  material;
-	float      point[3];
-	float      normal[3];
+	Vector     point[3];
+	Vector     normal[3];
 	char*      type;
 } Surface;
 
