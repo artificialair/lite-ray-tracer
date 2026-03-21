@@ -36,13 +36,12 @@ clean:
 run:
 	make $(BIN_DIR)/$(TARGET_EXEC)
 	@echo "------ OUTPUT ------"
-	@echo $(./$(BIN_DIR)/$(TARGET_EXEC))
+	./$(BIN_DIR)/$(TARGET_EXEC)
 	@echo "------ OUTPUT ------"
-	make clean
 
 .PHONY: run_tests
 run_tests:	
 	make $(BIN_DIR)/$(TARGET_EXEC)
-	@echo "------ OUTPUT ------"
-	@echo $(./$(BIN_DIR)/$(TARGET_EXEC))
-	@echo "------ OUTPUT ------"
+	@echo "\e[0;34m------ RUNNING TESTS ------\e[0m"
+	./$(BIN_DIR)/$(TARGET_EXEC) arg
+	@echo "\e[0;34m------ TESTS COMPLETED ------\e[0m"

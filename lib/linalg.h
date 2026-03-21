@@ -1,8 +1,7 @@
-#ifndef linalg
-#define linalg
+#ifndef LINALG_H_
+#define LINALG_H_
 #include "syscalls.h"
-
-const double pi = 3.14159265359;
+#include "mem.h"
 
 int pow(double a, int n);
 double sin(double x);
@@ -12,4 +11,4 @@ double* cross_product(double* a, double* b);
 double** matr_add(double** a, double** b, int ra, int ca, int rb, int cb);
 double** matr_mult(double** a, double** b, int ra, int ca, int rb, int cb);
 
-#endif
+#endif /*LINALG_H_*/

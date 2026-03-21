@@ -8,7 +8,7 @@ int strlen(const char * str) {
 	return p - str;
 }
 
-int atoi(char * str) {
+int atoi(const char * str) {
 	int result = 0;
 	int sign = 1;
 	int i = 0;
@@ -26,7 +26,7 @@ int atoi(char * str) {
 	return result * sign;
 }
 
-char * itoa(int n) {
+const char * itoa(int n) {
 	int size = 0;
 	int temp = n;
 	while (temp > 10) {
@@ -34,11 +34,15 @@ char * itoa(int n) {
 		size++;
 	}
 
-	char* str = malloc(size);
-	for (int i = size; i > 0; i--) {
+    char* str = malloc(size);
+	for (int i = size-1; i >= 0; i--) {
 		str[i] = n % 10;
 		n = n / 10;
 	}
 
 	return str;
+}
+
+void print_test_result(bool result) {
+    result ? print("\e[0;31mFAILED\e[0m\n") : print("\e[0;32mPASSED\e[0m\n");
 }

@@ -1,4 +1,3 @@
-#include "types.h"
 #include "syscalls.h"
 
 /*
@@ -15,7 +14,3 @@ void print(const char* str) {
     sys_write(STDOUT_FILENO, str, len);
 }
 
-void* malloc(size_t size) {
-    void* malloc_world = sys_mmap(0, size, 3, 32, -1, 0);
-    return malloc_world;
-}

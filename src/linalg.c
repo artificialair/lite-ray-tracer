@@ -1,5 +1,7 @@
 #include "linalg.h"
 
+const double PI = 3.14159265359;
+
 int pow(double a, int n) {
   if (n == 0) {
     return 1;
@@ -26,7 +28,7 @@ double sin(double x) {
 }
 
 double cos(double x) {
-    return sin(pi/2 + x);
+    return sin(PI/2 + x);
 }
 
 double dot_product(double* a, double* b, int size) {
