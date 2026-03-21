@@ -23,6 +23,7 @@ CFLAGS = -c -g -O3 -nostdlib -I lib/ -Wno-builtin-declaration-mismatch
 
 .PHONY: tracer
 $(BIN_DIR)/$(TARGET_EXEC): $(C_OBJ) $(ASM_OBJ)
+	mkdir -p $(BIN_DIR)
 	$(CC) $(ASM_OBJ) $(C_OBJ) -o $@
 
 .PHONY: clean
@@ -38,3 +39,10 @@ run:
 	@echo $(./$(BIN_DIR)/$(TARGET_EXEC))
 	@echo "------ OUTPUT ------"
 	make clean
+
+.PHONY: run_tests
+run_tests:	
+	make $(BIN_DIR)/$(TARGET_EXEC)
+	@echo "------ OUTPUT ------"
+	@echo $(./$(BIN_DIR)/$(TARGET_EXEC))
+	@echo "------ OUTPUT ------"
