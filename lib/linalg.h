@@ -3,12 +3,30 @@
 #include "syscalls.h"
 #include "mem.h"
 
-int pow(double a, int n);
-double sin(double x);
-double cos(double x);
-double dot_product(double* a, double* b, int size);
-double* cross_product(double* a, double* b);
-double** matr_add(double** a, double** b, int ra, int ca, int rb, int cb);
-double** matr_mult(double** a, double** b, int ra, int ca, int rb, int cb);
+const float pi = 3.14159265359;
 
+typedef struct {
+    float*  vector;
+    int     length;
+} Vector;
+
+typedef struct {
+    float** matrix;
+    int     row;
+    int     col;
+} Matrix;
+
+Vector* init_vector(int l);
+Matrix* init_matrix(int r, int c);
+int pow(float a, int n);
+float sqrt(float x);
+float invsqrt(float x);
+float sin(float x);
+float cos(float x);
+float magnitude(Vector* v);
+Vector* normalize(Vector* v);
+float dot_product(Vector* a, Vector* b);
+Vector* cross_product(Vector* a, Vector* b);
+Matrix* matr_add(Matrix* a, Matrix* b);
+Matrix* matr_mult(Matrix* a, Matrix* b);
 #endif /*LINALG_H_*/
