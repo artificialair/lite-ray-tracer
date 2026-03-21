@@ -1,16 +1,16 @@
 #include "linalg.h"
 
-Vector* init_vector(int l) {
+Vector* init_vector(int32_t l) {
     float* res_vector = (float*)malloc(l * sizeof(float*));
-    Vector* vec = malloc(sizeof(Vector));
-    vec->vector = res_vector;
-    vec->length = l;
+    Vector* vec   = malloc(sizeof(Vector));
+    vec->vector   = res_vector;
+    vec->elements = l;
     return vec;
 }
 
-Matrix* init_matrix(int r, int c) {
+Matrix* init_matrix(int32_t r, int32_t c) {
     float** res_matrix = (float**)malloc(r * sizeof(float*));
-    for (int i = 0; i < r; i++) {
+    for (int32_t i = 0; i < r; i++) {
         res_matrix[i] = (float*)malloc(c * sizeof(float));
     }
     Matrix* res = malloc(sizeof(Matrix));
@@ -20,7 +20,7 @@ Matrix* init_matrix(int r, int c) {
     return res;
 }
 
-int pow(float a, int n) {
+int32_t pow(float a, int32_t n) {
   if (n == 0) {
     return 1;
   }
@@ -71,7 +71,7 @@ float cos(float x) {
 
 float magnitude(Vector* v) {
     float res = 0;
-    for (int i = 0; i < v->length; i++) {
+    for (int32_t i = 0; i < v->elements; i++) {
         res += pow(v->vector[i], 2);
     }
     return sqrt(res);
@@ -80,18 +80,18 @@ float magnitude(Vector* v) {
 Vector* normalize(Vector* v) {
     Vector* res = init_vector(3);
     float mag = magnitude(v);
-    for (int i = 0; i < v->length; i++) {
+    for (int32_t i = 0; i < v->elements; i++) {
         res->vector[i] = v->vector[i] / mag;
     }
     return res;
 }
 
 float dot_product(Vector* a, Vector* b) {
-    if (a->length != b->length) {
+    if (a->elements != b->elements) {
         return 0;  // todo: error handle
     }
     float product = 0;
-    for (int i = 0; i < a->length; i++) {
+    for (int32_t i = 0; i < a->elements; i++) {
         product += a->vector[i] * b->vector[i];
     }
     return product;
@@ -110,8 +110,8 @@ Matrix* matr_add(Matrix* a, Matrix* b) {
         return 0;
     }
     Matrix* res = init_matrix(a->row, a->col);
-    for (int i = 0; i < a->row; i++) {
-        for (int j = 0; j < a->col; j++) {
+    for (int32_t i = 0; i < a->row; i++) {
+        for (int32_t j = 0; j < a->col; j++) {
             res->matrix[i][j] = a->matrix[i][j] + b->matrix[i][j];
         }
     }
@@ -123,10 +123,10 @@ Matrix* matr_mult(Matrix* a, Matrix* b) {
         return 0;  // todo: error handle
     }
     Matrix* res = init_matrix(a->row, b->col);
-    for (int i = 0; i < a->row; i++) {
-        for (int j = 0; j < b->col; j++) {
+    for (int32_t i = 0; i < a->row; i++) {
+        for (int32_t j = 0; j < b->col; j++) {
             float tmp = 0;
-            for (int k = 0; k < a->col; k++) {
+            for (int32_t k = 0; k < a->col; k++) {
                 tmp += a->matrix[i][k] * b->matrix[k][j];
             }
             res->matrix[i][j] = tmp;

@@ -8,7 +8,7 @@
 
 int strlen(const char * str);
 int atoi(const char * str);
-const char * itoa(int n);
+const char * itoa(int32_t n);
 void print_test_result(bool result);
 
 #endif /*STD_H_*/
