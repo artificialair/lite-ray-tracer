@@ -1,15 +1,19 @@
-#ifndef linalg
-#define linalg
+#ifndef LINALG_H_
+#define LINALG_H_
 #include "syscalls.h"
 
-const double pi = 3.14159265359;
+const float pi = 3.14159265359;
 
-int pow(double a, int n);
-double sin(double x);
-double cos(double x);
-double dot_product(double* a, double* b, int size);
-double* cross_product(double* a, double* b);
-double** matr_add(double** a, double** b, int ra, int ca, int rb, int cb);
-double** matr_mult(double** a, double** b, int ra, int ca, int rb, int cb);
+int pow(float a, int n);
+float sqrt(float x);
+float invsqrt(float x);
+float sin(float x);
+float cos(float x);
+float magnitude(float* v, int size);
+float normalize(float* v, int size);
+float dot_product(float* a, float* b, int size);
+float* cross_product(float* a, float* b);
+float** matr_add(float** a, float** b, int ra, int ca, int rb, int cb);
+float** matr_mult(float** a, float** b, int ra, int ca, int rb, int cb);
 
-#endif
+#endif /*LINALG_H_*/
