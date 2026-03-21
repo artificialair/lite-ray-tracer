@@ -45,6 +45,21 @@ double* cross_product(double* a, double* b) {
     return res;
 }
 
+double** matr_add(double** a, double** b, int ra, int ca, int rb, int cb) {
+    if (ra != rb || ca != cb) {
+        return 0;
+    }
+    double** res = malloc(ra * sizeof(double*));  // malloc is undefined, pleading emoji, wilted rose emoji
+    for (int i = 0; i < ra; i++) {
+        res[i] = malloc(cb * sizeof(double));
+    }
+    for (int i = 0; i < ra; i++) {
+        for (int j = 0; j < cb; j++) {
+            res[i][j] = a[i][j] + b[i][j];
+        }
+    }
+}
+
 double** matr_mult(double** a, double** b, int ra, int ca, int rb, int cb) {
     if (ca != rb) {
         return 0;
