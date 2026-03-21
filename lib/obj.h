@@ -1,24 +1,27 @@
-#ifndef obj
-#define obj
+#ifndef OBJ_H_
+#define OBJ_H_
 
 typedef struct {
-	double view_point[3];
-	double view_dir[3];
-	double proj_normal[3];
-	double view_up[3];
+	float view_point[3];
+	float view_dir[3];
+	float proj_normal[3];
+	float view_up[3];
 	int proj_distance;
 	int view_width;
 	int view_height;
+	float u;
+	float v;
+	float w;
 } Camera;
 
 typedef struct {
-	double color[3];
+	float color[3];
 } Material;
 
 typedef struct {
 	Material * material;
-	double point[3];
-	double normal[3];
+	float point[3];
+	float normal[3];
 	char * type;
 } Surface;
 
