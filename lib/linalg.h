@@ -4,16 +4,28 @@
 
 const float pi = 3.14159265359;
 
+typedef struct {
+    float*  vector;
+    int     length;
+} Vector;
+
+typedef struct {
+    float** matrix;
+    int     row;
+    int     col;
+} Matrix;
+
+Vector* init_vector(int l);
+Matrix* init_matrix(int r, int c);
 int pow(float a, int n);
 float sqrt(float x);
 float invsqrt(float x);
 float sin(float x);
 float cos(float x);
-float magnitude(float* v, int size);
-float normalize(float* v, int size);
-float dot_product(float* a, float* b, int size);
-float* cross_product(float* a, float* b);
-float** matr_add(float** a, float** b, int ra, int ca, int rb, int cb);
-float** matr_mult(float** a, float** b, int ra, int ca, int rb, int cb);
-
+float magnitude(Vector* v);
+Vector* normalize(Vector* v);
+float dot_product(Vector* a, Vector* b);
+Vector* cross_product(Vector* a, Vector* b);
+Matrix* matr_add(Matrix* a, Matrix* b);
+Matrix* matr_mult(Matrix* a, Matrix* b);
 #endif /*LINALG_H_*/

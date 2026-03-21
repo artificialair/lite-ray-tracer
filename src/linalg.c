@@ -1,5 +1,20 @@
 #include "linalg.h"
 
+Vector* init_vector(int l) {
+    float* res_vector = (float*)malloc(l * sizeof(float*));
+    Vector* res = {res_vector, l};
+    return res;
+}
+
+Matrix* init_matrix(int r, int c) {
+    float** res_matrix = (float**)malloc(r * sizeof(float*));
+    for (int i = 0; i < r; i++) {
+        res_matrix[i] = (float*)malloc(c * sizeof(float));
+    }
+    Matrix* res = {res_matrix, r, c};
+    return res;
+}
+
 int pow(float a, int n) {
   if (n == 0) {
     return 1;
@@ -49,69 +64,67 @@ float cos(float x) {
     return sin(pi/2 + x);
 }
 
-float magnitude(float* v, int size) {
+float magnitude(Vector* v) {
     float res = 0;
-    for (int i = 0; i < size; i++) {
-        res += pow(v[i], 2);
+    for (int i = 0; i < v->length; i++) {
+        res += pow(v->vector[i], 2);
     }
     return sqrt(res);
 }
  
-float* normalize(float* v, int size) {
-    float* res = (float*)malloc(3 * sizeof(float));
-    float mag = magnitude(v, size);
-    for (int i = 0; i < size; i++) {
-        res[i] = v[i] / mag;
+Vector* normalize(Vector* v) {
+    Vector* res = init_vector(3);
+    float mag = magnitude(v);
+    for (int i = 0; i < v->length; i++) {
+        res->vector[i] = v->vector[i] / mag;
     }
     return res;
 }
 
-float dot_product(float* a, float* b, int size) {
+float dot_product(Vector* a, Vector* b) {
+    if (a->length != b->length) {
+        return 0;  // todo: error handle
+    }
     float product = 0;
-    for (int i = 0; i < size; i++) {
-        product += a[i] * b[i];
+    for (int i = 0; i < a->length; i++) {
+        product += a->vector[i] * b->vector[i];
     }
     return product;
 }
 
-float* cross_product(float* a, float* b) {
-    float* res = (float*)malloc(3 * sizeof(float));
-    res[0] = a[1] * b[2] - a[2] * b[1];
-    res[1] = a[2] * b[0] - a[0] * b[2];
-    res[2] = a[0] * b[1] - a[1] * b[0];
+Vector* cross_product(Vector* a, Vector* b) {
+    Vector* res = init_vector(3);
+    res->vector[0] = a->vector[1] * b->vector[2] - a->vector[2] * b->vector[1];
+    res->vector[1] = a->vector[2] * b->vector[0] - a->vector[0] * b->vector[2];
+    res->vector[2] = a->vector[0] * b->vector[1] - a->vector[1] * b->vector[0];
     return res;
 }
 
-float** matr_add(float** a, float** b, int ra, int ca, int rb, int cb) {
-    if (ra != rb || ca != cb) {
+Matrix* matr_add(Matrix* a, Matrix* b) {
+    if (a->row != b->row || a->col != b->col) {
         return 0;
     }
-    float** res = (float**)malloc(ra * sizeof(float*));
-    for (int i = 0; i < ra; i++) {
-        res[i] = (float*)malloc(cb * sizeof(float));
-    }
-    for (int i = 0; i < ra; i++) {
-        for (int j = 0; j < cb; j++) {
-            res[i][j] = a[i][j] + b[i][j];
+    Matrix* res = init_matrix(a->row, a->col);
+    for (int i = 0; i < a->row; i++) {
+        for (int j = 0; j < a->col; j++) {
+            res->matrix[i][j] = a->matrix[i][j] + b->matrix[i][j];
         }
     }
+    return res;
 }
 
-float** matr_mult(float** a, float** b, int ra, int ca, int rb, int cb) {
-    if (ca != rb) {
-        return 0;
+Matrix* matr_mult(Matrix* a, Matrix* b) {
+    if (a->col != b->row) {
+        return 0;  // todo: error handle
     }
-    float** res = (float**)malloc(ra * sizeof(float*));
-    for (int i = 0; i < ra; i++) {
-        res[i] = (float*)malloc(cb * sizeof(float));
-    }
-    for (int i = 0; i < ra; i++) {
-        for (int j = 0; j < cb; j++) {
+    Matrix* res = init_matrix(a->row, b->col);
+    for (int i = 0; i < a->row; i++) {
+        for (int j = 0; j < b->col; j++) {
             float tmp = 0;
-            for (int k = 0; k < ca; k++) {
-                tmp += a[i][k] * b[k][j];
+            for (int k = 0; k < a->col; k++) {
+                tmp += a->matrix[i][k] * b->matrix[k][j];
             }
-            res[i][j] = tmp;
+            res->matrix[i][j] = tmp;
         }
     }
 }
