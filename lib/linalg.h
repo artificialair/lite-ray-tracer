@@ -1,6 +1,8 @@
 #ifndef linalg
 #define linalg
 
+const double pi = 3.14159265359;
+
 int pow(double a, int n);
 double sin(double x);
 double cos(double x);
