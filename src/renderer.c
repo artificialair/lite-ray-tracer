@@ -39,7 +39,9 @@ float*** __attribute__((optimize("O0"))) render() {
     uint32_t hits = 0;
     for (int i = 0; i < nx; i++) {
         for (int j = 0; j < ny; j++) {
-            if (img[i][j] != C_BLACK) hits++;
+            if (img[i][j][0] != 0.0 && img[i][j][1] != 0.0 && img[i][j][2] != 0.0) {
+                print("hit\n");
+            }
         }
     }
     print(itoa(hits));
