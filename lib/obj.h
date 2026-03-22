@@ -5,16 +5,16 @@
 #include "linalg.h"
 
 typedef struct {
-	float  view_point[3];
-	float  view_dir[3];
-	float  proj_normal[3];
-	float  view_up[3];
-	int32_t    proj_distance;
-	int32_t    view_width;
-	int32_t    view_height;
-    Vector u_vec;
-    Vector v_vec;
-    Vector w_vec;
+	float   view_point[3];
+	float   view_dir[3];
+	float   proj_normal[3];
+	float   view_up[3];
+	int32_t proj_distance;
+	int32_t view_width;
+	int32_t view_height;
+    Vector  u_vec;
+    Vector  v_vec;
+    Vector  w_vec;
 } Camera;
 
 typedef struct {

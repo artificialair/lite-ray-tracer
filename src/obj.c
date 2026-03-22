@@ -1,4 +1,4 @@
-#include "obj.h"
+/*#include "obj.h"
 
 
 Scene * getDefaultPlane() {
@@ -56,4 +56,4 @@ Scene * getDefaultPlane() {
 	scene->size[1] = 200;
 
 	return scene;
-}
+}*/
