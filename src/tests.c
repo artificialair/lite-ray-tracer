@@ -1,21 +1,35 @@
 #include "tests.h"
 
-bool malloc_test() {
-    print("before\n");
+bool __attribute__((optimize("O0"))) malloc_test() {
     void* ptr = malloc(MALLOC_SIZE);
-    print("after\n");
     if (ptr == NULL) return true;
+
     char* arr = (char *)ptr;
     for (int i = 0; i < MALLOC_SIZE; i++) {
         arr[i] = 'A';
         char dummy = arr[i];
     }
     char str[] = {arr[MALLOC_SIZE-1], '\n', '\0'};
-    print(str);
+    uint32_t num_rows = 5;
+    uint32_t num_cols = 5;
+    int* array2d = (int*)malloc(sizeof(int)*num_rows*num_cols);
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            array2d[i*num_rows + j] = i*j;
+        }
+    }/*
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            print(itoa(array2d[i*num_rows + j]));
+        }
+    }*/
+    
+    int* dummy = (int *)malloc(1024);
+    dummy[0] = 1;
     return false;
 }
 
-bool str_tests() {
+bool __attribute__((optimize("O0"))) str_tests() {
     const char* str = "hello, world";
     const char* str2 = "A";
     const char* int_str = "123";
@@ -23,42 +37,149 @@ bool str_tests() {
 
     uint32_t len1 = strlen(str);
     if (len1 != 12) return true;
+
     uint32_t len2 = strlen(str2);
     if (len2 != 1)  return true;
+
     uint32_t val = atoi(int_str);
     if (val != num) return true;
-    /*const char* num_str = itoa(num);
-    if (num_str != int_str) return true;
-    print("test5");*/
+
+    const char* num_str = itoa(num);
+    if (!streq(num_str, int_str)) return true;
+
+    char* dest = (char *)malloc(len1+1);
+    
+    strncpy(str, dest, len1);
+    const char* c_dest = dest;
+    if (!streq(c_dest, str)) return true;
+
+    const char* concat = "hello, worldA";
+    const char* concat_test = strcat(str, str2);
+    if (!streq(concat, concat_test)) return true;
+
+
     return false;
 }
 
-bool linalg_tests() {
+bool __attribute__((optimize("O0"))) linalg_tests() {
     Matrix* a = init_matrix(2, 3);
     Matrix* b = init_matrix(3, 2);
-    a->matrix[0][0] = 1;
-    a->matrix[0][1] = 4;
-    a->matrix[0][2] = 3;
-    a->matrix[0][0] = 7;
-    a->matrix[1][1] = 2;
-    a->matrix[2][2] = 9;
-    b->matrix[0][0] = 2;
-    b->matrix[0][1] = 1;
-    b->matrix[1][0] = 5;
-    b->matrix[1][1] = 4;
-    b->matrix[2][0] = 9;
-    b->matrix[2][1] = 6;
+    fill_mat(a, 2, 3);
+    fill_mat(b, 3, 2);
     Matrix* d = mult_mm(a, b);
-    if (d->matrix[0][0] != 49 || d->matrix[0][1] != 35 || d->matrix[1][0] != 105 || d->matrix[1][1] != 69) {
+    if (d->matrix[0][0] != 22 
+            || d->matrix[0][1] != 28 
+            || d->matrix[1][0] != 49 
+            || d->matrix[1][1] != 64) {
         return true;
     }
+    Vector* vec = (Vector *)malloc(sizeof(Vector));
+    float arr[] = {1, 2, 3};
+    vec->vector = arr;
+    vec->size   = 3;
+
+    float mag = magnitude(vec);
+    Vector* norm = normalize(vec);
+    if (!float_eq(mag, 3.7416574)) return true;
+    for (int i = 0; i < 3; i++) {
+        vec->vector[i] = vec->vector[i]/mag;
+        if (!float_eq(norm->vector[i], vec->vector[i])) return true;
+    }
+    Vector* vec2 = (Vector *)malloc(sizeof(Vector));
+    float arr2[] = {1, 0, 0};
+    float arr3[] = {0, 1, 0};
+    vec->vector = arr3;
+    vec2->vector = arr2;
+    vec2->size   = 3;
+
+    Vector* vec3 = cross_product(vec2, vec);
+    if (!float_eq(vec3->vector[2], 1.0)) return true;
+    for (int i = 0; i < 3; i++);
+    return false;
+}
+
+/*
+Ray * castRays(Camera * camera, int32_t i, int32_t j, int32_t nx, int32_t ny) {
+	float u        = ((camera->view_width * -1) / 2) + 
+                     ((camera->view_width * (i + 0.5)) / nx);
+	float v        = ((camera->view_height * -1) / 2) + 
+                     ((camera->view_height * (j + 0.5)) / ny);
+	Vector* d      = add_vv(mult_sv((-1 * camera->proj_distance), camera->proj_normal), 
+			         add_vv(mult_sv(u, camera->u_vec), mult_sv(v, camera->v_vec)));
+	Ray * ray      = (Ray *) malloc(sizeof(Ray));
+	ray->origin    = camera->view_point;
+	ray->direction = normalize(d);
+}*/
+
+
+bool __attribute__((optimize("O0"))) ray_tests() {
+    Scene* scene = getDefaultPlane();
+    Camera* camera = scene->camera;
+    Material* material = scene->material;
+    Surface* surface = scene->surface;
+    int32_t* size = scene->size;
+    Ray* ray = castRay(camera, 0, 0, size[0], size[1]); /*200x200*/
+    /*
+    float u        = (-view_width/2)  + ((view_width) *(i + 0.5))/nx;
+    float v        = (-view_height/2) + ((view_height)*(j + 0.5))/ny;
+	Vector* d      = add_vv(mult_sv((-1 * camera->proj_distance), camera->proj_normal), 
+			         add_vv(mult_sv(u, camera->u_vec), mult_sv(v, camera->v_vec)));
+	Ray * ray      = (Ray *) malloc(sizeof(Ray));
+	ray->origin    = camera->view_point;
+	ray->direction = normalize(d);*/
+    float u = (-1) + (2 + 0.5)/200;
+    float v = (-1) + (2 + 0.5)/200;
+
+    float* vec = (float*)malloc(sizeof(float)*3);
+    vec[0] = 0.0125;
+    vec[1] = -0.9875;
+    vec[2] = 0;
+
+    Vector d_stat = {
+        .vector = vec,
+        .size   = 3,
+    };
+
+    Vector* d = normalize(&d_stat);
+    float* unit = (float *)malloc(sizeof(float)*3);
+    unit[0] = 0;
+    unit[1] = 0;
+    unit[2] = 0;
+    d->vector[0] = 0.57927959;
+    d->vector[1] = -0.57638319;
+    d->vector[2] = -0.57638319;
+    for (int i = 0; i < 3; i++) {
+        if (ray->origin->vector[i] != unit[i]) {
+            return true;
+        }
+        if (ray->direction->vector[i] != d->vector[i]) {
+            print("fail there\n");
+            return true;
+        }
+    }
+
+    HitRecord* hr = hitPlane(surface, ray);
+    if (hr == NULL) return true;
+    float hit_t = hr->t;
+    float known_t = 1.7262821322136195;
+    if (!float_eq(hit_t, known_t)) return true;
+    Vector* ray_point = evaluate(ray, hit_t);
+    float arr[3] = {1.0 , -0.995, -0.995};
+    for (int i = 0; i < 3; i++){
+        if (!float_eq(ray_point->vector[i], arr[i])) return true;
+    }
+
+    return false;
 }
 
 void run_tests() {
-    uint32_t res = malloc_test();
-    print_test_result(res);
+    uint32_t res;
     res = str_tests();
-    print_test_result(res);
+    print_test_result("String tests", res);
+    res = malloc_test();
+    print_test_result("Malloc tests", res);
     res = linalg_tests();
-    print_test_result(res);
+    print_test_result("Linalg tests", res);
+    res = ray_tests(); 
+    print_test_result("Ray tests", res);
 }

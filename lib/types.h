@@ -13,4 +13,9 @@ typedef uint64_t uintptr_t;
 typedef uint64_t size_t;
 typedef int64_t off_t;
 
+#if defined(__STDC__) && __STDC_VERSION__ >= 199901L
+#else
+typedef enum {false, true} bool;
+#endif /*BOOL*/
+
 #endif /*TYPES_H_*/

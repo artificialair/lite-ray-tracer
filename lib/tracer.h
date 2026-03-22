@@ -7,5 +7,6 @@
 #include "linalg.h"
 #include "tests.h"
 #include "mem.h"
+#include "renderer.h"
 
 #endif /*TRACER_H_*/

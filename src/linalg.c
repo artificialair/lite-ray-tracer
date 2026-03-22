@@ -1,16 +1,16 @@
 #include "linalg.h"
 
-Vector* init_vector(int l) {
+Vector* init_vector(int32_t l) {
     float* res_vector = (float*)malloc(l * sizeof(float*));
-    Vector* vec = malloc(sizeof(Vector));
-    vec->vector = res_vector;
-    vec->size = l;
+    Vector* vec   = malloc(sizeof(Vector));
+    vec->vector   = res_vector;
+    vec->size     = l;
     return vec;
 }
 
-Matrix* init_matrix(int r, int c) {
+Matrix* init_matrix(int32_t r, int32_t c) {
     float** res_matrix = (float**)malloc(r * sizeof(float*));
-    for (int i = 0; i < r; i++) {
+    for (int32_t i = 0; i < r; i++) {
         res_matrix[i] = (float*)malloc(c * sizeof(float));
     }
     Matrix* res = malloc(sizeof(Matrix));
@@ -20,7 +20,7 @@ Matrix* init_matrix(int r, int c) {
     return res;
 }
 
-int pow(float a, int n) {
+float pow(float a, int32_t n) {
   if (n == 0) {
     return 1;
   }
@@ -35,10 +35,15 @@ int pow(float a, int n) {
 }
 
 float sqrt(float x) {
-    return 1 / invsqrt(x);
+    if (x < 0) return 0;
+    float root = x / 3;
+    for (int i = 0; i < 32; i++) {
+        root = (root + x / root) / 2;
+    }
+    return root;
 }
 
-float invsqrt(float x) {
+/*float invsqrt(float x) {
     // thank you quake for this masterpiece
     // i might use a better approx later that works with doubles (if i care)
 	long i;
@@ -53,7 +58,7 @@ float invsqrt(float x) {
 	y  = y * ( threehalfs - ( x2 * y * y ) );
 
 	return y;
-}
+}*/
 
 float sin(float x) {
     // 6th order Pade Approximation for sin
@@ -133,8 +138,8 @@ Vector* add_vv(Vector* a, Vector* b) {
 
 Matrix* add_mm(Matrix* a, Matrix* b) {
     Matrix* res = init_matrix(a->row, a->col);
-    for (int i = 0; i < a->row; i++) {
-        for (int j = 0; j < a->col; j++) {
+    for (int32_t i = 0; i < a->row; i++) {
+        for (int32_t j = 0; j < a->col; j++) {
             res->matrix[i][j] = a->matrix[i][j] + b->matrix[i][j];
         }
     }
@@ -175,13 +180,25 @@ Matrix* mult_mm(Matrix* a, Matrix* b) {
         return 0;  // todo: error handle
     }
     Matrix* res = init_matrix(a->row, b->col);
-    for (int i = 0; i < a->row; i++) {
-        for (int j = 0; j < b->col; j++) {
+    for (int32_t i = 0; i < a->row; i++) {
+        for (int32_t j = 0; j < b->col; j++) {
             float tmp = 0;
-            for (int k = 0; k < a->col; k++) {
+            for (int32_t k = 0; k < a->col; k++) {
                 tmp += a->matrix[i][k] * b->matrix[k][j];
             }
             res->matrix[i][j] = tmp;
         }
     }
+    return res;
 }
+
+void fill_mat(Matrix* mat, uint32_t rows, uint32_t cols) {
+    uint32_t count = 1;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            mat->matrix[i][j] = (float) (count);
+            count++;
+        }
+    }
+}
+

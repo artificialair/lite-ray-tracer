@@ -12,7 +12,7 @@ DEPS = $(shell find $(LIB_DIR)/ -name "*.h")
 C_OBJ = $(patsubst %.c, %.o, $(shell find . -name "*.c"))
 ASM_OBJ = $(patsubst %.asm, %.o, $(shell find . -name "*.asm"))
 
-CFLAGS = -c -g -O3 -nostdlib -I lib/ -Wno-builtin-declaration-mismatch 
+CFLAGS = -O3 -c -g -nostdlib -I lib/ -Wno-builtin-declaration-mismatch -std=c23
 
 
 %.o: %.asm 
