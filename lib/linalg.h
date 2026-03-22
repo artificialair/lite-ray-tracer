@@ -7,7 +7,7 @@
 
 typedef struct {
     float*  vector;
-    int32_t     elements;
+    int     size;
 } Vector;
 
 typedef struct {
@@ -27,6 +27,13 @@ float magnitude(Vector* v);
 Vector* normalize(Vector* v);
 float dot_product(Vector* a, Vector* b);
 Vector* cross_product(Vector* a, Vector* b);
-Matrix* matr_add(Matrix* a, Matrix* b);
-Matrix* matr_mult(Matrix* a, Matrix* b);
+Vector* add_sv(float a, Vector* b);
+Matrix* add_sm(float a, Matrix* b);
+Vector* add_vv(Vector* a, Vector* b);
+Matrix* add_mm(Matrix* a, Matrix* b);
+Vector* mult_sv(float a, Vector* b);
+Matrix* mult_sm(float a, Matrix* b);
+Matrix* mult_vm(Vector* a, Matrix* b);
+Vector* mult_mv(Matrix* a, Vector* b);
+Matrix* mult_mm(Matrix* a, Matrix* b);
 #endif /*LINALG_H_*/
