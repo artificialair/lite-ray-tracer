@@ -19,12 +19,18 @@ CFLAGS = -O3 -c -g -nostdlib -I lib/ -Wno-builtin-declaration-mismatch -std=c23
 	$(ASM) $< -o $@
 
 %.o: %.c $(DEPS)
-	gcc $(CFLAGS) $< -o $@
+	gcc -fPIC $(CFLAGS) $< -o $@
 
 .PHONY: tracer
 $(BIN_DIR)/$(TARGET_EXEC): $(C_OBJ) $(ASM_OBJ)
 	mkdir -p $(BIN_DIR)
 	$(CC) $(ASM_OBJ) $(C_OBJ) -o $@
+
+.PHONY: python
+python: $(C_OBJ) $(ASM_OBJ)
+	mkdir -p $(BIN_DIR)
+	$(CC) -fPIC -shared $(ASM_OBJ) $(C_OBJ) -o tracer.so -lm
+
 
 .PHONY: clean
 clean:

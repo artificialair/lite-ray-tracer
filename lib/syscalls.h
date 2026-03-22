@@ -12,6 +12,11 @@
 #define SYS_FORK   57
 #define SYS_EXIT   60
 
+#define O_CREAT    64
+#define S_IRUSR    256
+#define S_IWUSR    128
+#define S_IROTH    4
+
 
 extern void* syscall_wrapper(void* arg1, void* arg2, void* arg3, uint32_t syscall_num);
 extern void* sys_mmap(void* addr, size_t length, int32_t prot, int32_t flags,
@@ -23,5 +28,8 @@ extern void* sys_mmap(void* addr, size_t length, int32_t prot, int32_t flags,
 void print(const char* str);
 void* malloc(size_t size);
 void munmap(void* addr, size_t len);
+uint32_t open(const char* filename, int32_t flags, int32_t mode);
+
+#pragma GCC diagnostic pop
 
 #endif /*SYSCALLS_H_*/

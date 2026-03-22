@@ -32,31 +32,12 @@ HitRecord* hitPlane(Surface* surface, Ray* ray) {
 	return NULL;
 }
 
-/*
- *         A = np.dot(ray.d, ray.d)
-        B = np.dot(2 * ray.d, ray.o - self.center)
-        C = (np.dot(ray.o - self.center, ray.o - self.center) - self.radius**2)
-        det = B**2 - (4 * A * C)
-        if (det < 0):
-            return None
-        pos_root = (-B + np.sqrt(det)) / (2 * A)
-        neg_root = (-B - np.sqrt(det)) / (2 * A)
-        if neg_root < 0 and pos_root > 0:
-            t = pos_root
-            normal = (ray.evaluate(t) - self.center) / self.radius
-            return HitRecord(self, pos_root, normal)
-        t = min(pos_root, neg_root)
-        if neg_root < 0 and pos_root < 0:
-            return None
-        normal = (ray.evaluate(t) - self.center) / self.radius
-        return HitRecord(self, min(pos_root, neg_root), normal)
-*/
-HitRecord* hitSphere(Surface* surface, Ray* ray) {
-    float A = dot_product(ray->direction, ray->direction);
-    float B = (-dot_product(mult_sv(2, ray->direction), 
-                            add_vv(ray->origin, mult_sv(-1, surface->center))));
-    float C = dot_product(add_vv(ray->origin, mult_sv(-1, surface->center)), 
-                          add_vv(ray->origin, mult_sv(-1, surface->center)))
+/*HitRecord* hitSphere(Surface* surface, Ray* ray) {
+    float A = dot_product(ray.direction, ray.direction);
+    float B = (-dot_product(mult_sv(2, ray.direction), 
+                            add_vv(ray.origin, mult_sv(-1, surface->center))));
+    float C = dot_product(add_vv(ray.origin, mult_sv(-1, surface->center)), 
+                          add_vv(ray.origin, mult_sv(-1, surface->center)))
               - (surface->radius*surface->radius);
     float det = B*B - (4 * A * C);
     if (det < 0) return NULL;
@@ -70,5 +51,5 @@ HitRecord* hitSphere(Surface* surface, Ray* ray) {
     hr->t = t;
     hr->normal = norm;
     return hr;
-}   
+}   */
 
