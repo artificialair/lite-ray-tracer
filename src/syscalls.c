@@ -23,7 +23,7 @@ uint32_t open(const char* filename, int32_t flags, int32_t mode) {
     return *ptr;
 }
 
-void munmap(uintptr_t addr, size_t len) {
+void munmap(void* addr, size_t len) {
     syscall_wrapper((void*) addr, (void*) len, NULL, SYS_MUNMAP);
 }
 

@@ -22,5 +22,6 @@ extern void* sys_mmap(void* addr, size_t length, int32_t prot, int32_t flags,
 
 void print(const char* str);
 void* malloc(size_t size);
+void munmap(void* addr, size_t len);
 
 #endif /*SYSCALLS_H_*/

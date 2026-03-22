@@ -9,9 +9,8 @@ void* __attribute__((optimize("O0"))) malloc(size_t size) {
     return malloc_world;
 }
 
-void free(void* mem) {
-    ; /* who needs to free? */
-    return;
+void destroy() {
+    munmap(PAGE->page_start, PAGE->page_end - PAGE->page_start);
 }
 
 _Page page_init() {
