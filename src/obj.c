@@ -41,10 +41,18 @@ Scene* getDefaultScene() {
     camera->u_vec       = normalize(cross_product(camera->w_vec, view_up));
     camera->v_vec       = normalize(cross_product(camera->u_vec, camera->w_vec));
 
+
+    	Light* light = (Light *)malloc(sizeof(Light));
+	light->position = init_vector(3);
+	light->position->vector[0] = 5.0;
+	light->position->vector[1] = 4.0;
+	light->position->vector[2] = 3.0;
+	light->intensity = 200.0;
 	// Initialize scene
 	Scene* scene = (Scene *)malloc(sizeof(Scene));
 	scene->camera = camera;
 	scene->surface = NULL;
+	scene->point_light = light;
 
 	scene->size[0] = 200;
 	scene->size[1] = 200;

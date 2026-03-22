@@ -30,9 +30,16 @@ typedef struct {
 } Surface;
 
 typedef struct {
+	float intensity;
+	Vector* position;
+} Light;
+
+typedef struct {
 	Camera*    camera;
 	Surface*   surface;
 	int32_t    size[2];
+	float ambient_light;
+	Light * point_light;
 } Scene;
 
 
