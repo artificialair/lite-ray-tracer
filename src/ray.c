@@ -1,7 +1,5 @@
 #include "ray.h"
 
-/*
-
 Ray * castRays(Camera * camera, int32_t i, int32_t j, int32_t nx, int32_t ny) {
 	float u        = ((camera->view_width * -1) / 2) + 
                      ((camera->view_width * (i + 0.5)) / nx);
@@ -28,4 +26,4 @@ HitRecord * hitPlane(Surface * surface, Ray * ray) {
 		return record;
 	}
 	return NULL;
-}*/
+}
