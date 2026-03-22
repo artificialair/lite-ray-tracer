@@ -1,25 +1,22 @@
-import ctypes
+import sys
+import struct
 
-lib = ctypes.CDLL("./tracer.so")
-
-depth, rows, cols = 200, 200, 3
-total_elements = depth * rows * cols
-
-lib.render.restype = ctypes.POINTER(ctypes.POINTER(ctypes.POINTER(ctypes.c_float)))
-
-ptr = lib.render()
-
+f = sys.argv[1]
 array = []
-for i in range(depth):
-    d = []
-    for j in range(rows):
-        r = []
-        for k in range(cols):
-            r.append(ptr[i][j][k]);
-        d.append(r.copy());
-    array.append(d.copy());
-print()
-print(len(array), len(array[0]), len(array[0][0]))
+for line in f.split('\n'):
+    array.append([struct.unpack('>f', bytes.fromhex(x))[0] for x in line.split(' ')])
+print(array)
+
+width = 200
+height = 200
+
+img = []
+for i in range(height):
+    row = []
+    for j in range(width):
+        row.append(array[(i * width) + j])
+    img.append(row)
+        
 
 # two year old level tkinter python renderer
 import tkinter as tk
@@ -36,9 +33,9 @@ canvas = tk.Canvas(root, width=width, height=height, bg='#FFFFFF')
 canvas.pack()
 
 def draw_pixels():
-    for i in range(len(array)):
-        for j in range(len(array[i])):
-            c = array[i][j]
+    for i in range(height):
+        for j in range(width):
+            c = img[i][j]
             c = [int(aga * 256) for aga in c]
             canvas.create_rectangle(i, j, i+1, j+1, outline=rgb_to_hex(c[0], c[1], c[2]))
 
