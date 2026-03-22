@@ -10,14 +10,14 @@ Ray * castRays(Camera * camera, int32_t i, int32_t j, int32_t nx, int32_t ny) {
 	Ray * ray      = (Ray *) malloc(sizeof(Ray));
 	ray->origin    = camera->view_point;
 	//ray->direction = matr_div(d, normalize(d));
-    ray->direction = NULL; // TBC
+    	ray->direction = NULL; // TBC
 }
 
 HitRecord * hitPlane(Surface * surface, Ray * ray) {
 	float bot = dot_product(ray->direction, surface->normal, 3);
 	if (bot < 0.000001) return NULL;
 	// float t = dot_product(matr_sub(surface->point, ray->origin), surface->normal) / dot;
-    float t = 0; //TBC
+    	float t = 0; //TBC
 	if (t > 0) {
 		HitRecord * record = (HitRecord *) malloc(sizeof(HitRecord));
 		record->surface = surface;
