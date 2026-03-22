@@ -12,5 +12,6 @@ typedef long int64_t;
 typedef uint64_t uintptr_t;
 typedef uint64_t size_t;
 typedef int64_t off_t;
+typedef enum {false, true} bool;
 
 #endif /*TYPES_H_*/

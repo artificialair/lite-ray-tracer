@@ -4,7 +4,7 @@ Vector* init_vector(int32_t l) {
     float* res_vector = (float*)malloc(l * sizeof(float*));
     Vector* vec   = malloc(sizeof(Vector));
     vec->vector   = res_vector;
-    vec->elements = l;
+    vec->size     = l;
     return vec;
 }
 

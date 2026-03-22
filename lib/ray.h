@@ -4,14 +4,14 @@
 #include "obj.h"
 
 typedef struct {
-	Vector origin[3];
-	Vector direction[3];
+	Vector* origin;
+	Vector* direction;
 } Ray;
 
 typedef struct {
 	Surface*  surface;
 	float     t;
-	Vector     normal[3];
+	Vector*   normal;
 } HitRecord;
 
 HitRecord* hitPlane(Surface* surface, Ray* ray);
