@@ -44,7 +44,10 @@ def draw_pixels():
         for j in range(width):
             c = img[i][j]
             c = [int(aga * 256) for aga in c]
-            canvas.create_rectangle(i, j, i+1, j+1, outline=rgb_to_hex(c[0], c[1], c[2]))
+            try:
+                canvas.create_rectangle(i, j, i+1, j+1, outline=rgb_to_hex(c[0], c[1], c[2]))
+            except:
+                pass
 
 draw_pixels()
 root.mainloop()  # make it not close

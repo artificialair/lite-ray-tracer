@@ -33,7 +33,14 @@ float*** __attribute__((optimize("O0"))) render() {
         for (int j = 0; j < ny; j++) {
             Ray* ray = castRay(camera, i, j, nx, ny);
             HitRecord* hr = hitSphere(surface, ray);
-            img[i][j] = (hr == NULL) ? C_BLACK : illuminate(scene->point_light, ray, hr);
+            if (hr == NULL) {
+                img[i][j] = C_BLACK;
+            } else {
+                img[i][j] = illuminate(scene->point_light, ray, hr);
+                for (int k = 0; k < 3; k++) {
+                    img[i][j][k] += scene->ambient_light;
+                }
+            }
             //img[i][j] = surface->material->color;
         }
     }

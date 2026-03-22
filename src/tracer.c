@@ -8,5 +8,6 @@ int main(uint32_t argc, char** argv) {
     if (argc > 1) run_tests();
     float*** dummy = render();
     //write_img(NULL, 200, 200);
+    destroy();
     return 0;
 }

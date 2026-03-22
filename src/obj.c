@@ -43,15 +43,16 @@ Scene* getDefaultScene() {
 
     Light* light = (Light *)malloc(sizeof(Light));
 	light->point = init_vector(3);
-	light->point->vector[0] = 5.0;
-	light->point->vector[1] = 4.0;
-	light->point->vector[2] = 3.0;
-	light->intensity = 200.0;
+	light->point->vector[0] = 0.0;
+	light->point->vector[1] = -2.0;
+	light->point->vector[2] = 0.0;
+	light->intensity = 3.0;
 	// Initialize scene
 	Scene* scene = (Scene *)malloc(sizeof(Scene));
 	scene->camera = camera;
 	scene->surface = NULL;
     scene->point_light = light;
+    scene->ambient_light = 0.1F;
 
 	scene->size[0] = 200;
 	scene->size[1] = 200;

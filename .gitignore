@@ -3,3 +3,4 @@ tracer
 *.swp
 .vscode/
 bin/
+input
