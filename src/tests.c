@@ -73,6 +73,102 @@ bool __attribute__((optimize("O0"))) linalg_tests() {
             || d->matrix[1][1] != 64) {
         return true;
     }
+    Vector* vec = (Vector *)malloc(sizeof(Vector));
+    float arr[] = {1, 2, 3};
+    vec->vector = arr;
+    vec->size   = 3;
+
+    float mag = magnitude(vec);
+    Vector* norm = normalize(vec);
+    if (!float_eq(mag, 3.7416574)) return true;
+    for (int i = 0; i < 3; i++) {
+        vec->vector[i] = vec->vector[i]/mag;
+        if (!float_eq(norm->vector[i], vec->vector[i])) return true;
+    }
+    Vector* vec2 = (Vector *)malloc(sizeof(Vector));
+    float arr2[] = {1, 0, 0};
+    float arr3[] = {0, 1, 0};
+    vec->vector = arr3;
+    vec2->vector = arr2;
+    vec2->size   = 3;
+
+    Vector* vec3 = cross_product(vec2, vec);
+    if (!float_eq(vec3->vector[2], 1.0)) return true;
+    for (int i = 0; i < 3; i++);
+    return false;
+}
+
+/*
+Ray * castRays(Camera * camera, int32_t i, int32_t j, int32_t nx, int32_t ny) {
+	float u        = ((camera->view_width * -1) / 2) + 
+                     ((camera->view_width * (i + 0.5)) / nx);
+	float v        = ((camera->view_height * -1) / 2) + 
+                     ((camera->view_height * (j + 0.5)) / ny);
+	Vector* d      = add_vv(mult_sv((-1 * camera->proj_distance), camera->proj_normal), 
+			         add_vv(mult_sv(u, camera->u_vec), mult_sv(v, camera->v_vec)));
+	Ray * ray      = (Ray *) malloc(sizeof(Ray));
+	ray->origin    = camera->view_point;
+	ray->direction = normalize(d);
+}*/
+
+
+bool __attribute__((optimize("O0"))) ray_tests() {
+    Scene* scene = getDefaultPlane();
+    Camera* camera = scene->camera;
+    Material* material = scene->material;
+    Surface* surface = scene->surface;
+    int32_t* size = scene->size;
+    Ray* ray = castRay(camera, 0, 0, size[0], size[1]); /*200x200*/
+    /*
+    float u        = (-view_width/2)  + ((view_width) *(i + 0.5))/nx;
+    float v        = (-view_height/2) + ((view_height)*(j + 0.5))/ny;
+	Vector* d      = add_vv(mult_sv((-1 * camera->proj_distance), camera->proj_normal), 
+			         add_vv(mult_sv(u, camera->u_vec), mult_sv(v, camera->v_vec)));
+	Ray * ray      = (Ray *) malloc(sizeof(Ray));
+	ray->origin    = camera->view_point;
+	ray->direction = normalize(d);*/
+    float u = (-1) + (2 + 0.5)/200;
+    float v = (-1) + (2 + 0.5)/200;
+
+    float* vec = (float*)malloc(sizeof(float)*3);
+    vec[0] = 0.0125;
+    vec[1] = -0.9875;
+    vec[2] = 0;
+
+    Vector d_stat = {
+        .vector = vec,
+        .size   = 3,
+    };
+
+    Vector* d = normalize(&d_stat);
+    float* unit = (float *)malloc(sizeof(float)*3);
+    unit[0] = 0;
+    unit[1] = 0;
+    unit[2] = 0;
+    d->vector[0] = 0.57927959;
+    d->vector[1] = -0.57638319;
+    d->vector[2] = -0.57638319;
+    for (int i = 0; i < 3; i++) {
+        if (ray->origin->vector[i] != unit[i]) {
+            return true;
+        }
+        if (ray->direction->vector[i] != d->vector[i]) {
+            print("fail there\n");
+            return true;
+        }
+    }
+
+    HitRecord* hr = hitPlane(surface, ray);
+    if (hr == NULL) return true;
+    float hit_t = hr->t;
+    float known_t = 1.7262821322136195;
+    if (!float_eq(hit_t, known_t)) return true;
+    Vector* ray_point = evaluate(ray, hit_t);
+    float arr[3] = {1.0 , -0.995, -0.995};
+    for (int i = 0; i < 3; i++){
+        if (!float_eq(ray_point->vector[i], arr[i])) return true;
+    }
+
     return false;
 }
 
@@ -84,4 +180,6 @@ void run_tests() {
     print_test_result("Malloc tests", res);
     res = linalg_tests();
     print_test_result("Linalg tests", res);
+    res = ray_tests(); 
+    print_test_result("Ray tests", res);
 }

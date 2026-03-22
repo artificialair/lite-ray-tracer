@@ -84,3 +84,11 @@ const char* strcat(const char* s1, const char* s2) {
     new_str[s1len+s2len] = '\0';
     return (const char*) new_str;
 }
+
+float abs(float val) {
+    return val < 0 ? -(val) : val;
+}
+
+bool float_eq(float f1, float f2) {
+    return abs(f1 - f2) < FPT_ERR;
+} 

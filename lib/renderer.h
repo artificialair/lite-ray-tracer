@@ -9,4 +9,6 @@
 #include "ray.h"
 #include "linalg.h"
 
+float*** render();
+
 #endif /*RENDERER_H_*/

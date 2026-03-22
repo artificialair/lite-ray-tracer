@@ -9,7 +9,7 @@
 #define MAP_ANONYMOUS 32
 #define MAP_FAILED (void *) -1
 
-#define DEFAULT_PAGE_SIZE 1024*1024
+#define DEFAULT_PAGE_SIZE 1024*1024*512
 
 void* malloc(size_t size);
 void free(void* mem);

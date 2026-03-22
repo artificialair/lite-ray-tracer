@@ -6,9 +6,11 @@
 #include "syscalls.h"
 #include "linalg.h"
 #include "mem.h"
+#include "obj.h"
+#include "ray.h"
 
-volatile bool malloc_test();
-volatile bool str_tests();
+bool malloc_test();
+bool str_tests();
 void run_tests();
 
 #endif /*TESTS_H_*/

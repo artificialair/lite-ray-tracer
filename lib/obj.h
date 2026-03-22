@@ -9,16 +9,16 @@ typedef struct {
 	Vector* view_dir;
 	Vector* proj_normal;
 	Vector* view_up;
-	int32_t    proj_distance;
-	int32_t    view_width;
-	int32_t    view_height;
-    	Vector* u_vec;
-    	Vector* v_vec;
+	int32_t proj_distance;
+	int32_t view_width;
+	int32_t view_height;
+    Vector* u_vec;
+    Vector* v_vec;
 	Vector* w_vec;
 } Camera;
 
 typedef struct {
-	Vector* color;
+	float* color;
 } Material;
 
 typedef struct {

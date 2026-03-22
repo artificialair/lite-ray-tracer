@@ -18,7 +18,7 @@ typedef struct {
 
 Vector* init_vector(int32_t l);
 Matrix* init_matrix(int32_t r, int32_t c);
-int32_t pow(float a, int32_t n);
+float pow(float a, int32_t n);
 float   sqrt(float x);
 float   invsqrt(float x);
 float   sin(float x);

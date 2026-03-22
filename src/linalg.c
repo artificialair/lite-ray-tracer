@@ -20,7 +20,7 @@ Matrix* init_matrix(int32_t r, int32_t c) {
     return res;
 }
 
-int32_t pow(float a, int32_t n) {
+float pow(float a, int32_t n) {
   if (n == 0) {
     return 1;
   }
@@ -35,10 +35,15 @@ int32_t pow(float a, int32_t n) {
 }
 
 float sqrt(float x) {
-    return 1 / invsqrt(x);
+    if (x < 0) return 0;
+    float root = x / 3;
+    for (int i = 0; i < 32; i++) {
+        root = (root + x / root) / 2;
+    }
+    return root;
 }
 
-float invsqrt(float x) {
+/*float invsqrt(float x) {
     // thank you quake for this masterpiece
     // i might use a better approx later that works with doubles (if i care)
 	long i;
@@ -53,7 +58,7 @@ float invsqrt(float x) {
 	y  = y * ( threehalfs - ( x2 * y * y ) );
 
 	return y;
-}
+}*/
 
 float sin(float x) {
     // 6th order Pade Approximation for sin
