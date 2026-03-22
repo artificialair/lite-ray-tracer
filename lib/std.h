@@ -8,7 +8,10 @@
 
 int strlen(const char * str);
 int atoi(const char * str);
-const char * itoa(int n);
-void print_test_result(bool result);
+const char * itoa(int32_t n);
+void print_test_result(const char* title, bool result);
+bool streq(const char* s1, const char* s2);
+void strncpy(const char* s, char* dest, size_t size);
+const char* strcat(const char* s1, const char* s2);
 
 #endif /*STD_H_*/

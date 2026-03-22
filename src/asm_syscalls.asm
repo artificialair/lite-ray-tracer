@@ -18,12 +18,12 @@ sys_mmap:
     push %rbp
     movq %rsp, %rbp
     movl $9, %eax
+    movq %rcx, %r10
     syscall
     movq %rbp, %rsp
     popq %rbp
     retq
 
-    
     .global sys_munmap
 sys_munmap: 
     push %rbp
