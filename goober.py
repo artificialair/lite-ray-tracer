@@ -1,11 +1,18 @@
 import sys
 import struct
 
-f = sys.argv[1]
 array = []
-for line in f.split('\n'):
-    array.append([struct.unpack('>f', bytes.fromhex(x))[0] for x in line.split(' ')])
-print(array)
+with open(sys.argv[1], 'r') as f:
+    for line in f:
+        rgb = []
+        for x in line.split(' '):
+            if x == '0' or x =='0\n': rgb.append(0.0)
+            else: 
+                try: rgb.append(struct.unpack('>f', bytes.fromhex(x))[0])
+                except Exception:
+                    print(repr(x))
+        array.append(rgb)
+        # array.append([struct.unpack('>f', bytes.fromhex(x))[0] for x in line.split(' ')])
 
 width = 200
 height = 200
