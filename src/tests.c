@@ -48,7 +48,7 @@ bool linalg_tests() {
     b->matrix[1][1] = 4;
     b->matrix[2][0] = 9;
     b->matrix[2][1] = 6;
-    Matrix* d = matr_mult(a, b);
+    Matrix* d = mult_mm(a, b);
     if (d->matrix[0][0] != 49 || d->matrix[0][1] != 35 || d->matrix[1][0] != 105 || d->matrix[1][1] != 69) {
         return true;
     }

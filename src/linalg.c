@@ -4,7 +4,7 @@ Vector* init_vector(int l) {
     float* res_vector = (float*)malloc(l * sizeof(float*));
     Vector* vec = malloc(sizeof(Vector));
     vec->vector = res_vector;
-    vec->length = l;
+    vec->size = l;
     return vec;
 }
 
@@ -71,7 +71,7 @@ float cos(float x) {
 
 float magnitude(Vector* v) {
     float res = 0;
-    for (int i = 0; i < v->length; i++) {
+    for (int i = 0; i < v->size; i++) {
         res += pow(v->vector[i], 2);
     }
     return sqrt(res);
@@ -80,18 +80,18 @@ float magnitude(Vector* v) {
 Vector* normalize(Vector* v) {
     Vector* res = init_vector(3);
     float mag = magnitude(v);
-    for (int i = 0; i < v->length; i++) {
+    for (int i = 0; i < v->size; i++) {
         res->vector[i] = v->vector[i] / mag;
     }
     return res;
 }
 
 float dot_product(Vector* a, Vector* b) {
-    if (a->length != b->length) {
+    if (a->size != b->size) {
         return 0;  // todo: error handle
     }
     float product = 0;
-    for (int i = 0; i < a->length; i++) {
+    for (int i = 0; i < a->size; i++) {
         product += a->vector[i] * b->vector[i];
     }
     return product;
@@ -105,10 +105,33 @@ Vector* cross_product(Vector* a, Vector* b) {
     return res;
 }
 
-Matrix* matr_add(Matrix* a, Matrix* b) {
-    if (a->row != b->row || a->col != b->col) {
-        return 0;
+Vector* add_sv(float a, Vector* b) {
+    Vector* res = init_vector(b->size);
+    for (int i = 0; i < b->size; i++) {
+        res->vector[i] = b->vector[i] + a;
     }
+    return res;
+}
+
+Matrix* add_sm(float a, Matrix* b) {
+    Matrix* res = init_matrix(b->row, b->col);
+    for (int i = 0; i < b->row; i++) {
+        for (int j = 0; j < b->col; j++) {
+            res->matrix[i][j] = b->matrix[i][j] + a;
+        }
+    }
+    return res;
+}
+
+Vector* add_vv(Vector* a, Vector* b) {
+    Vector* res = init_vector(a->size);
+    for (int i = 0; i < a->size; i++) {
+        res->vector[i] = a->vector[i] + b->vector[i];
+    }
+    return res;
+}
+
+Matrix* add_mm(Matrix* a, Matrix* b) {
     Matrix* res = init_matrix(a->row, a->col);
     for (int i = 0; i < a->row; i++) {
         for (int j = 0; j < a->col; j++) {
@@ -118,7 +141,36 @@ Matrix* matr_add(Matrix* a, Matrix* b) {
     return res;
 }
 
-Matrix* matr_mult(Matrix* a, Matrix* b) {
+Vector* mult_sv(float a, Vector* b) {
+    Vector* res = init_vector(b->size);
+    for (int i = 0; i < b->size; i++) {
+        res->vector[i] = a * b->vector[i];
+    }
+    return res;
+}
+
+Matrix* mult_sm(float a, Matrix* b) {
+    Matrix* res = init_matrix(b->row, b->col);
+    for (int i = 0; i < b->row; i++) {
+        for (int j = 0; j < b->col; j++) {
+            res->matrix[i][j] = a + b->matrix[i][j];
+        }
+    }
+    return res;
+}
+
+Vector* mult_mv(Matrix* a, Vector* b) {
+    Vector* res = init_vector(a->row);  
+    for (int i = 0; i < a->row; i++) {
+        float tmp = 0;
+        for (int k = 0; k < a->col; k++) {  // this is probably wrong (lol)
+            tmp += a->matrix[i][k] * b->vector[i];
+        }
+        res->vector[i] = tmp;
+    }
+}
+
+Matrix* mult_mm(Matrix* a, Matrix* b) {
     if (a->col != b->row) {
         return 0;  // todo: error handle
     }
