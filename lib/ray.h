@@ -18,5 +18,6 @@ Ray * castRay(Camera * camera, int32_t i, int32_t j, int32_t nx, int32_t ny);
 HitRecord* hitPlane(Surface* surface, Ray* ray);
 HitRecord* hitSphere(Surface* surface, Ray* ray);
 Vector* evaluate(Ray* ray, float t);
+float* illuminate(Light* light, Ray* ray, HitRecord* hr);
 
 #endif

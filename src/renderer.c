@@ -15,7 +15,7 @@ float*** init_nm3(uint32_t rows, uint32_t cols, uint32_t arr_size) {
 
 float*** __attribute__((optimize("O0"))) render() {
     Scene* scene     = getDefaultScene();
-    Surface* surface = getDefaultPlane();
+    Surface* surface = getDefaultSphere();
     scene->surface   = surface;
     Camera* camera   = scene->camera;
     int32_t* size    = scene->size;
@@ -32,8 +32,8 @@ float*** __attribute__((optimize("O0"))) render() {
     for (int i = 0; i < nx; i++) {
         for (int j = 0; j < ny; j++) {
             Ray* ray = castRay(camera, i, j, nx, ny);
-            HitRecord* hr = hitPlane(surface, ray);
-            img[i][j] = (hr == NULL ? C_BLACK : surface->material->color);
+            HitRecord* hr = hitSphere(surface, ray);
+            img[i][j] = (hr == NULL) ? C_BLACK : illuminate(scene->point_light, ray, hr);
             //img[i][j] = surface->material->color;
         }
     }

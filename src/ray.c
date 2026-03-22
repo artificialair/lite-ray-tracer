@@ -53,3 +53,17 @@ HitRecord* hitSphere(Surface* surface, Ray* ray) {
     return hr;
 }
 
+float* illuminate(Light* light, Ray* ray, HitRecord* hr) { 
+    Vector* x = evaluate(ray, hr->t);
+    Vector* r = add_vv(light->point, mult_sv(-1, x));
+    float r_mag = magnitude(r);
+    r = mult_sv(1/r_mag, r);
+    float e = light->intensity / (r_mag * r_mag);
+    float diffuse = dot_product(hr->normal, r) > 0 ? dot_product(hr->normal, r) : 0;
+    float* color = hr->surface->material->color;
+    Vector* color_vec = init_vector(3);
+    color_vec->vector[0] = color[0] * diffuse;
+    color_vec->vector[1] = color[1] * diffuse;
+    color_vec->vector[2] = color[2] * diffuse;
+    return mult_sv(e, color_vec)->vector;
+}
