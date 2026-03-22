@@ -1,5 +1,4 @@
 #include "renderer.h"
-#include <stdio.h>
 
 float*** init_nm3(uint32_t rows, uint32_t cols, uint32_t arr_size) {
     float*** mat = (float***)malloc(rows*sizeof(uintptr_t));
@@ -41,11 +40,15 @@ float*** __attribute__((optimize("O0"))) render() {
     uint32_t hits = 0;
     for (int i = 0; i < nx; i++) {
         for (int j = 0; j < ny; j++) {
-            printf("%x %x %x\n", *(unsigned int*)&img[i][j][0], 
-                                 *(unsigned int*)&img[i][j][1], 
-                                 *(unsigned int*)&img[i][j][2]);
+            print(byte_to_hex(*(unsigned int*)&img[i][j][0]));
+            print(" ");
+            print(byte_to_hex(*(unsigned int*)&img[i][j][1]));
+            print(" ");
+            print(byte_to_hex(*(unsigned int*)&img[i][j][2]));
+            print("\n");
         }
     }
+    //printf("%x\n", byte_to_hex(0xFFFFFFFF));
     return img;
 }
 
