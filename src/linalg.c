@@ -184,4 +184,16 @@ Matrix* mult_mm(Matrix* a, Matrix* b) {
             res->matrix[i][j] = tmp;
         }
     }
+    return res;
 }
+
+void fill_mat(Matrix* mat, uint32_t rows, uint32_t cols) {
+    uint32_t count = 1;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            mat->matrix[i][j] = (float) (count);
+            count++;
+        }
+    }
+}
+

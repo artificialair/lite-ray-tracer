@@ -61,25 +61,19 @@ bool __attribute__((optimize("O0"))) str_tests() {
     return false;
 }
 
-bool linalg_tests() {
+bool __attribute__((optimize("O0"))) linalg_tests() {
     Matrix* a = init_matrix(2, 3);
     Matrix* b = init_matrix(3, 2);
-    a->matrix[0][0] = 1;
-    a->matrix[0][1] = 4;
-    a->matrix[0][2] = 3;
-    a->matrix[0][0] = 7;
-    a->matrix[1][1] = 2;
-    a->matrix[2][2] = 9;
-    b->matrix[0][0] = 2;
-    b->matrix[0][1] = 1;
-    b->matrix[1][0] = 5;
-    b->matrix[1][1] = 4;
-    b->matrix[2][0] = 9;
-    b->matrix[2][1] = 6;
+    fill_mat(a, 2, 3);
+    fill_mat(b, 3, 2);
     Matrix* d = mult_mm(a, b);
-    if (d->matrix[0][0] != 49 || d->matrix[0][1] != 35 || d->matrix[1][0] != 105 || d->matrix[1][1] != 69) {
+    if (d->matrix[0][0] != 22 
+            || d->matrix[0][1] != 28 
+            || d->matrix[1][0] != 49 
+            || d->matrix[1][1] != 64) {
         return true;
     }
+    return false;
 }
 
 void run_tests() {
@@ -88,4 +82,6 @@ void run_tests() {
     print_test_result("String tests", res);
     res = malloc_test();
     print_test_result("Malloc tests", res);
+    res = linalg_tests();
+    print_test_result("Linalg tests", res);
 }

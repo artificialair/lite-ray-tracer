@@ -1,18 +1,13 @@
-    .global sys_exit
-sys_exit:
-    movl $60, %eax
-    syscall
-
-    .global sys_write
-sys_write:
+    .global syscall_wrapper
+syscall_wrapper:
     push %rbp
     movq %rsp, %rbp
-    movl $1, %eax
+    movl %ecx, %eax
     syscall
     movq %rbp, %rsp
     popq %rbp
     retq
-
+    
     .global sys_mmap
 sys_mmap:
     push %rbp
@@ -23,14 +18,3 @@ sys_mmap:
     movq %rbp, %rsp
     popq %rbp
     retq
-
-    .global sys_munmap
-sys_munmap: 
-    push %rbp
-    movq %rsp, %rbp
-    movl $11, %eax
-    syscall
-    movq %rbp, %rsp
-    popq %rbp
-    retq
-
