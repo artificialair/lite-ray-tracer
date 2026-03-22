@@ -23,12 +23,12 @@ float*** __attribute__((optimize("O0"))) render() {
     int32_t  nx      = size[0];
     int32_t  ny      = size[1];
 
-    float*** img = init_nm3(nx, ny, 3);
-
     float* C_BLACK = (float *)malloc(3*sizeof(float));
     for (int i = 0; i < 3; i++) {
         C_BLACK[i] = 0;
     }
+
+    float*** img = init_nm3(nx, ny, 3);
 
     for (int i = 0; i < nx; i++) {
         for (int j = 0; j < ny; j++) {
@@ -41,10 +41,16 @@ float*** __attribute__((optimize("O0"))) render() {
     uint32_t hits = 0;
     for (int i = 0; i < nx; i++) {
         for (int j = 0; j < ny; j++) {
-            printf("color: %f, %f, %f\n", img[i][j][0], img[i][j][1], img[i][j][2]);
-            if (img[i][j] != C_BLACK) hits++;
+            printf("%x %x %x\n", *(unsigned int*)&img[i][j][0], 
+                                 *(unsigned int*)&img[i][j][1], 
+                                 *(unsigned int*)&img[i][j][2]);
         }
     }
-    print(itoa(hits));
     return img;
 }
+
+void write_img(float*** img, uint32_t nx, uint32_t ny) {
+    //uint32_t fd = open("arr.contents", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR | S_IROTH);
+    //int res = fallocate(fd, 0, 0, nx*ny*4*3*8*2);
+    //write(fd, "hello\n", 7);
+} 

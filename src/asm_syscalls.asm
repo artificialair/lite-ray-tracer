@@ -19,3 +19,14 @@ sys_mmap:
     popq %rbp
     retq
 
+    .global sys_fallocate
+sys_fallocate:
+    push %rbp
+    movq %rsp, %rbp
+    movl $285, %eax
+    movq %rcx, %r10
+    syscall
+    movq %rbp, %rsp
+    popq %rbp
+    retq
+

@@ -12,7 +12,7 @@ DEPS = $(shell find $(LIB_DIR)/ -name "*.h")
 C_OBJ = $(patsubst %.c, %.o, $(shell find . -name "*.c"))
 ASM_OBJ = $(patsubst %.asm, %.o, $(shell find . -name "*.asm"))
 
-CFLAGS = -O3 -c -g -nostdlib -I lib/ -Wno-builtin-declaration-mismatch -std=c23
+CFLAGS = -O0 -c -g -nostdlib -I lib/ -Wno-builtin-declaration-mismatch -std=c23
 
 
 %.o: %.asm 
@@ -29,7 +29,7 @@ $(BIN_DIR)/$(TARGET_EXEC): $(C_OBJ) $(ASM_OBJ)
 .PHONY: python
 python: $(C_OBJ) $(ASM_OBJ)
 	mkdir -p $(BIN_DIR)
-	$(CC) -fPIC -shared $(ASM_OBJ) $(C_OBJ) -o tracer.so -lm
+	$(CC) -fPIC -shared $(ASM_OBJ) $(C_OBJ) -o tracer.so
 
 
 .PHONY: clean

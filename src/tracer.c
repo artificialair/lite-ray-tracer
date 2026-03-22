@@ -7,5 +7,6 @@ int main(uint32_t argc, char** argv) {
     PAGE = &page;
     if (argc > 1) run_tests();
     float*** dummy = render();
+    //write_img(NULL, 200, 200);
     return 0;
 }

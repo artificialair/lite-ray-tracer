@@ -10,5 +10,6 @@
 #include "linalg.h"
 
 float*** render();
+void write_img(float*** img, uint32_t nx, uint32_t ny);
 
 #endif /*RENDERER_H_*/

@@ -4,7 +4,7 @@
 Scene* getDefaultScene() {
 	// Initialize camera
 
-	Camera* camera      = malloc(sizeof(Camera));
+	Camera* camera      = (Camera *) malloc(sizeof(Camera));
     Vector* view_point  = init_vector(3);
     Vector* view_dir    = init_vector(3);
     Vector* proj_normal = init_vector(3);
@@ -42,7 +42,7 @@ Scene* getDefaultScene() {
     camera->v_vec       = normalize(cross_product(camera->u_vec, camera->w_vec));
 
 	// Initialize scene
-	Scene* scene = malloc(sizeof(Scene));
+	Scene* scene = (Scene *)malloc(sizeof(Scene));
 	scene->camera = camera;
 	scene->surface = NULL;
 
@@ -53,7 +53,7 @@ Scene* getDefaultScene() {
 }
 
 Surface* getDefaultPlane() {
-	Material* material = malloc(sizeof(Material));
+	Material* material = (Material *)malloc(sizeof(Material));
     float* color        = (float *)malloc(sizeof(float)*3);
     material->color = color;
     Vector* point       = init_vector(3);
@@ -64,7 +64,7 @@ Surface* getDefaultPlane() {
 	color[2] = 0.678;
 	
 	// Initialize plane
-	Surface* surface = malloc(sizeof(Surface));
+	Surface* surface = (Surface *)malloc(sizeof(Surface));
 	surface->material = material;
     surface->point  = point;
     surface->normal = normal;
@@ -87,7 +87,7 @@ Surface* getDefaultPlane() {
 Surface* getDefaultSphere() {
     Surface* surface = (Surface *)malloc(sizeof(Surface));
     
-	Material* material  = malloc(sizeof(Material));
+	Material* material  = (Material *)malloc(sizeof(Material));
     float* color        = (float *)malloc(sizeof(float)*3);
     material->color     = color;
     Vector* point       = init_vector(3);

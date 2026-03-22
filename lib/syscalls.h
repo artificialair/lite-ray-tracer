@@ -13,6 +13,7 @@
 #define SYS_EXIT   60
 
 #define O_CREAT    64
+#define O_RDWR     2
 #define S_IRUSR    256
 #define S_IWUSR    128
 #define S_IROTH    4
@@ -21,10 +22,13 @@
 extern void* syscall_wrapper(void* arg1, void* arg2, void* arg3, uint32_t syscall_num);
 extern void* sys_mmap(void* addr, size_t length, int32_t prot, int32_t flags,
                   uint32_t fd, off_t offset);
+extern int sys_fallocate(uint32_t fd, int32_t mode, off_t offset, off_t size);
 
 #define exit(status) sys_exit(status)
 #define mmap(addr, length, prot, flags, fd, offset) sys_mmap(addr, length, prot, flags, fd, offset)
 
+int fallocate(uint32_t fd, int32_t mode, off_t offset, off_t size);
+void write(uint32_t fd, const char* buf, size_t count);
 void print(const char* str);
 void* malloc(size_t size);
 void munmap(void* addr, size_t len);

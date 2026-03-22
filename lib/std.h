@@ -16,5 +16,6 @@ void strncpy(const char* s, char* dest, size_t size);
 const char* strcat(const char* s1, const char* s2);
 float abs(float val);
 bool float_eq(float f1, float f2);
+const char* float_to_hex(float num);
 
 #endif /*STD_H_*/

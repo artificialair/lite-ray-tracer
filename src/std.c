@@ -92,3 +92,25 @@ float abs(float val) {
 bool float_eq(float f1, float f2) {
     return abs(f1 - f2) < FPT_ERR;
 } 
+
+/*const char* float_to_hex(float num) { 
+	int size = 1;
+	int temp = num;
+	while (temp > 16) {
+		temp = temp >> 4;
+		size++;
+	}
+    
+    char* str = (char*)malloc(100);
+	for (int i = size-1; i >= 0; i--) {
+        if (num & 16 >= 10) {
+            str[i] = ('A') + num & 16;
+        } else {
+            char ascii_int = ((num & 16) + '0');
+            str[i] = ascii_int;
+        }
+		num = num >> 4;
+	}
+    str[size] = '\0';
+	return str;
+}*/

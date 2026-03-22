@@ -10,6 +10,10 @@ extern uint32_t sys_munmap(void addr[length], size_t length);
 #pragma GCC diagnostic error "-Wint-to-pointer-cast"
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
+int fallocate(uint32_t fd, int32_t mode, off_t offset, off_t size) {
+    sys_fallocate(fd, mode, offset, size);
+}
+
 void write(uint32_t fd, const char* buf, size_t count) {
     syscall_wrapper((void*) fd, (void*) buf, (void*) count, SYS_WRITE);
 }

@@ -2,3 +2,4 @@ tracer
 *.o
 *.swp
 .vscode/
+bin/
