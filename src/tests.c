@@ -113,10 +113,11 @@ Ray * castRays(Camera * camera, int32_t i, int32_t j, int32_t nx, int32_t ny) {
 
 
 bool __attribute__((optimize("O0"))) ray_tests() {
-    Scene* scene = getDefaultPlane();
+    Scene* scene = getDefaultScene();
+    Surface* surface = getDefaultPlane();
+    scene->surface = surface;
     Camera* camera = scene->camera;
-    Material* material = scene->material;
-    Surface* surface = scene->surface;
+    Material* material = surface->material;
     int32_t* size = scene->size;
     Ray* ray = castRay(camera, 0, 0, size[0], size[1]); /*200x200*/
     /*
