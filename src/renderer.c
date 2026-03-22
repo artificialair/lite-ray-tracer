@@ -14,9 +14,10 @@ float*** init_nm3(uint32_t rows, uint32_t cols, uint32_t arr_size) {
 }
 
 float*** __attribute__((optimize("O0"))) render() {
-    Scene* scene     = getDefaultPlane();
+    Scene* scene     = getDefaultScene();
+    Surface* surface = getDefaultPlane();
+    scene->surface   = surface;
     Camera* camera   = scene->camera;
-    Surface* surface = scene->surface;
     int32_t* size    = scene->size;
     int32_t  nx      = size[0];
     int32_t  ny      = size[1];
@@ -36,7 +37,7 @@ float*** __attribute__((optimize("O0"))) render() {
             img[i][j] = surface->material->color;
         }
     }
-    uint32_t hits = 0;
+    //uint32_t hits = 0;
     for (int i = 0; i < nx; i++) {
         for (int j = 0; j < ny; j++) {
             /*if (img[i][j][0] != 0.0 && img[i][j][1] != 0.0 && img[i][j][2] != 0.0) {
@@ -44,6 +45,6 @@ float*** __attribute__((optimize("O0"))) render() {
             }*/
         }
     }
-    print(itoa(hits));
+    //print(itoa(hits));
     return img;
 }

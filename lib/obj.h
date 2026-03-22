@@ -25,17 +25,19 @@ typedef struct {
 	Material*  material;
 	Vector*    point;
 	Vector*    normal;
+    float      radius;
 	char*      type;
 } Surface;
 
 typedef struct {
 	Camera*    camera;
-	Material*  material;
 	Surface*   surface;
 	int32_t    size[2];
 } Scene;
 
 
-Scene* getDefaultPlane();
+Scene*   getDefaultScene();
+Surface* getDefaultPlane();
+Surface* getDefaultSphere();
 
 #endif /*OBJ_H_*/

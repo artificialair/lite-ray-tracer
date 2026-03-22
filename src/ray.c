@@ -32,12 +32,12 @@ HitRecord* hitPlane(Surface* surface, Ray* ray) {
 	return NULL;
 }
 
-/*HitRecord* hitSphere(Surface* surface, Ray* ray) {
-    float A = dot_product(ray.direction, ray.direction);
-    float B = (-dot_product(mult_sv(2, ray.direction), 
-                            add_vv(ray.origin, mult_sv(-1, surface->center))));
-    float C = dot_product(add_vv(ray.origin, mult_sv(-1, surface->center)), 
-                          add_vv(ray.origin, mult_sv(-1, surface->center)))
+HitRecord* hitSphere(Surface* surface, Ray* ray) {
+    float A = dot_product(ray->direction, ray->direction);
+    float B = (-dot_product(mult_sv(2, ray->direction), 
+                            add_vv(ray->origin, mult_sv(-1, surface->point))));
+    float C = dot_product(add_vv(ray->origin, mult_sv(-1, surface->point)), 
+                          add_vv(ray->origin, mult_sv(-1, surface->point)))
               - (surface->radius*surface->radius);
     float det = B*B - (4 * A * C);
     if (det < 0) return NULL;
@@ -45,11 +45,11 @@ HitRecord* hitPlane(Surface* surface, Ray* ray) {
     float neg_root = (-B - sqrt(det)) / (2*A);
     float t = pos_root > neg_root ? neg_root : pos_root;
     if (neg_root < 0 && pos_root < 0) return NULL;
-    Vector* norm = mult_sv(1/surface->radius, add_vv(evaluate(ray, t), mult_sv(-1, surface->center)));
+    Vector* norm = mult_sv(1/surface->radius, add_vv(evaluate(ray, t), mult_sv(-1, surface->point)));
     HitRecord* hr = (HitRecord *)malloc(sizeof(HitRecord));
     hr->surface = surface;
     hr->t = t;
     hr->normal = norm;
     return hr;
-}   */
+}
 

@@ -1,17 +1,14 @@
 #include "obj.h"
 
 
-Scene* getDefaultPlane() {
+Scene* getDefaultScene() {
 	// Initialize camera
 
-	Camera* camera     = malloc(sizeof(Camera));
+	Camera* camera      = malloc(sizeof(Camera));
     Vector* view_point  = init_vector(3);
     Vector* view_dir    = init_vector(3);
     Vector* proj_normal = init_vector(3);
     Vector* view_up     = init_vector(3);
-    float* color        = (float *)malloc(sizeof(float)*3);
-    Vector* point       = init_vector(3);
-    Vector* normal      = init_vector(3);
     camera->view_point  = view_point;
     camera->view_dir    = view_dir;
     camera->proj_normal = proj_normal;
@@ -44,16 +41,29 @@ Scene* getDefaultPlane() {
     camera->u_vec       = normalize(cross_product(camera->w_vec, view_up));
     camera->v_vec       = normalize(cross_product(camera->u_vec, camera->w_vec));
 
+	// Initialize scene
+	Scene* scene = malloc(sizeof(Scene));
+	scene->camera = camera;
+	scene->surface = NULL;
 
-	// Initialize material
+	scene->size[0] = 200;
+	scene->size[1] = 200;
+
+	return scene;
+}
+
+Surface* getDefaultPlane() {
 	Material* material = malloc(sizeof(Material));
+    float* color        = (float *)malloc(sizeof(float)*3);
     material->color = color;
+    Vector* point       = init_vector(3);
+    Vector* normal      = init_vector(3);
 
 	color[0] = 0.008;
 	color[1] = 0.271;
 	color[2] = 0.678;
 	
-	// Initialize surface
+	// Initialize plane
 	Surface* surface = malloc(sizeof(Surface));
 	surface->material = material;
     surface->point  = point;
@@ -70,15 +80,31 @@ Scene* getDefaultPlane() {
 	normal->size = 3;
 
 	surface->type = "Plane";
+    surface->radius = 0;
+    return surface;
+}
 
-	// Initialize scene
-	Scene* scene = malloc(sizeof(Scene));
-	scene->camera = camera;
-	scene->material = material;
-	scene->surface = surface;
+Surface* getDefaultSphere() {
+    Surface* surface = (Surface *)malloc(sizeof(Surface));
+    
+	Material* material  = malloc(sizeof(Material));
+    float* color        = (float *)malloc(sizeof(float)*3);
+    material->color     = color;
+    Vector* point       = init_vector(3);
 
-	scene->size[0] = 200;
-	scene->size[1] = 200;
+	color[0] = 0.008;
+	color[1] = 0.271;
+	color[2] = 0.678;
 
-	return scene;
+	point->vector[0] = 2.0;
+	point->vector[1] = 0.0;
+	point->vector[2] = 0.0;
+	point->size = 3;
+    
+    surface->radius = 1;
+    surface->normal = NULL;
+    surface->material = material;
+    surface->point = point;
+    surface->type  = "Sphere";
+    return surface;
 }
