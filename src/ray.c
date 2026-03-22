@@ -34,8 +34,8 @@ HitRecord* hitPlane(Surface* surface, Ray* ray) {
 
 HitRecord* hitSphere(Surface* surface, Ray* ray) {
     float A = dot_product(ray->direction, ray->direction);
-    float B = (-dot_product(mult_sv(2, ray->direction), 
-                            add_vv(ray->origin, mult_sv(-1, surface->point))));
+    float B = dot_product(mult_sv(2, ray->direction), 
+                            add_vv(ray->origin, mult_sv(-1, surface->point)));
     float C = dot_product(add_vv(ray->origin, mult_sv(-1, surface->point)), 
                           add_vv(ray->origin, mult_sv(-1, surface->point)))
               - (surface->radius*surface->radius);

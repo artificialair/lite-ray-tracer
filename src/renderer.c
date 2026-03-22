@@ -1,4 +1,5 @@
 #include "renderer.h"
+#include <stdio.h>
 
 float*** init_nm3(uint32_t rows, uint32_t cols, uint32_t arr_size) {
     float*** mat = (float***)malloc(rows*sizeof(uintptr_t));
@@ -33,18 +34,17 @@ float*** __attribute__((optimize("O0"))) render() {
         for (int j = 0; j < ny; j++) {
             Ray* ray = castRay(camera, i, j, nx, ny);
             HitRecord* hr = hitPlane(surface, ray);
-            if (hr == NULL) img[i][j] = C_BLACK;
-            img[i][j] = surface->material->color;
+            img[i][j] = (hr == NULL ? C_BLACK : surface->material->color);
+            //img[i][j] = surface->material->color;
         }
     }
-    //uint32_t hits = 0;
+    uint32_t hits = 0;
     for (int i = 0; i < nx; i++) {
         for (int j = 0; j < ny; j++) {
-            /*if (img[i][j][0] != 0.0 && img[i][j][1] != 0.0 && img[i][j][2] != 0.0) {
-                print("hit\n");
-            }*/
+            printf("color: %f, %f, %f\n", img[i][j][0], img[i][j][1], img[i][j][2]);
+            if (img[i][j] != C_BLACK) hits++;
         }
     }
-    //print(itoa(hits));
+    print(itoa(hits));
     return img;
 }

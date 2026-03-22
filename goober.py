@@ -16,8 +16,8 @@ for i in range(depth):
         r = []
         for k in range(cols):
             r.append(ptr[i][j][k]);
-        d.append(r);
-    array.append(d);
+        d.append(r.copy());
+    array.append(d.copy());
 print()
 print(len(array), len(array[0]), len(array[0][0]))
 
