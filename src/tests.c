@@ -108,7 +108,7 @@ Ray * castRays(Camera * camera, int32_t i, int32_t j, int32_t nx, int32_t ny) {
 			         add_vv(mult_sv(u, camera->u_vec), mult_sv(v, camera->v_vec)));
 	Ray * ray      = (Ray *) malloc(sizeof(Ray));
 	ray->origin    = camera->view_point;
-    ray->direction = normalize(d);
+:ray->direction = normalize(d);
 }*/
 
 
@@ -154,6 +154,7 @@ bool __attribute__((optimize("O0"))) ray_tests() {
             return true;
         }
         if (ray->direction->vector[i] != d->vector[i]) {
+            print("fail there\n");
             return true;
         }
     }

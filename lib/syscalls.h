@@ -34,6 +34,4 @@ void* malloc(size_t size);
 void munmap(void* addr, size_t len);
 uint32_t open(const char* filename, int32_t flags, int32_t mode);
 
-#pragma GCC diagnostic pop
-
 #endif /*SYSCALLS_H_*/

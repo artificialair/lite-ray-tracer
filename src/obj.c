@@ -54,7 +54,7 @@ Scene* getDefaultScene() {
     scene->point_light = light;
     scene->ambient_light = 0.1F;
 
-	scene->size[0] = 200;
+	scene->size[0] = 200;;
 	scene->size[1] = 200;
 
 	return scene;
@@ -100,7 +100,7 @@ Surface* getDefaultSphere() {
     material->color     = color;
     Vector* point       = init_vector(3);
 
-	color[0] = 0.008;
+	color[0] = 0.500;
 	color[1] = 0.271;
 	color[2] = 0.678;
 

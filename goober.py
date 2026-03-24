@@ -14,8 +14,8 @@ with open(sys.argv[1], 'r') as f:
         array.append(rgb)
         # array.append([struct.unpack('>f', bytes.fromhex(x))[0] for x in line.split(' ')])
 
-width = 200
-height = 200
+width = 400
+height = 400
 
 img = []
 for i in range(height):
